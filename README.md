@@ -31,7 +31,7 @@ or
 pip install -r requirements.txt
 ```
 
-3. Ensure you have a `.env` file with your Gemini free-tier API key:
+3. Ensure you have a `.env` file with your Gemini free-tier and Groq API keys:
 
 ```bash
 cp .env.example .env
@@ -48,7 +48,7 @@ OCR_SPACE_API_KEY=your_ocr_space_api_key
 NCERT science textbook source:
 [https://ncert.nic.in/textbook.php?iesc1=0-11](https://ncert.nic.in/textbook.php?iesc1=0-11)
 
-Download Chapter files as: `iesc1XX.pdf` (e.g., `iesc102.pdf` = Chapter 2: Motion) and place them in the `iesc1dd/` directory.
+Download Chapter files as: `iesc1XX.pdf` (e.g., `iesc102.pdf` = Chapter 2: Motion) and place them in the `iesc1dd/` directory in the root.
 
 ## How to Extract PDF Content
 
@@ -135,6 +135,33 @@ To start a live interactive session with the assistant:
 ```bash
 python src/groq_generation.py --interactive
 ```
+
+## Evaluation
+
+Run the full 3-axis evaluation (correctness, groundedness, refusal) against 20 questions:
+```bash
+python src/evaluate.py
+```
+
+Or via the main pipeline:
+```bash
+python main_pipeline.py --evaluate
+```
+
+This generates:
+- `data/evaluation_results.csv` — Raw scores for each question
+- [evaluation_results.md](docs/evaluation_results.md) — Summary report with working/failing example analysis
+
+## Project Documentation
+
+| Document | Description |
+|---|---|
+| [notebook.ipynb](notebook.ipynb) | End-to-end pipeline demonstration (Stages 1–4) |
+| [evaluation_results.md](docs/evaluation_results.md) | 20-question evaluation with 3-axis scoring |
+| [reflection.md](docs/reflection.md) | Project reflection (700–1000 words, 8 sections) |
+| [failure_modes.md](docs/failure_modes.md) | Top 3 production failure modes analysis |
+| [chunking_strategy.md](docs/chunking_strategy.md) | Chunking size, overlap, and strategy justification |
+| [data_organization.md](docs/data_organization.md) | Content classification and data structure |
 
 ## Diagnostic Tools
 A dedicated retrieval test script is available in the tests directory:
